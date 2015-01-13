@@ -7,27 +7,27 @@ function get(obj, path) {
 
   var results = [];
 
-  var type = {
+  var objType = {
     obj: false,
     arr: false
   };
 
-  var secondType = {
+  var pathType = {
     obj: false
   };
 
   if (!Array.isArray(obj)) {
-    type.obj = true;
+    objType.obj = true;
   }
   else {
-    type.arr = true;
+    objType.arr = true;
   }
 
-  if (path[0].indexOf('[') == -1) secondType.obj = true;
+  if (path[0].indexOf('[') == -1) pathType.obj = true;
 
-  if (secondType.obj) {
+  if (objType.obj) {
 
-    if (type.obj) {
+    if (pathType.obj) {
 
       if (path.length == 1) {
         results.push(obj[path[0]]);
@@ -40,7 +40,12 @@ function get(obj, path) {
       }
 
     }
-    else {
+
+  }
+
+  if (objType.arr) {
+
+    if (pathType.obj) {
 
       obj = obj.filter(function (e) {
         if (e.hasOwnProperty(path[0])) return e;
@@ -62,9 +67,9 @@ function get(obj, path) {
 
     }
 
-    return results;
   }
 
+  return results;
 }
 
 arrjson.get = get;
