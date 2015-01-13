@@ -8,7 +8,10 @@ var temp = {
   two: { one: 'second first' },
   three: [
     { one: 'third first' },
-    { two: 'second' }
+    { one: 'fourth first' },
+    { two: 'second' },
+    [ { one: 'fifth first' }, { two: 'second second' } ],
+    [ { one: 'sixth first' }, { two: 'third second' } ]
   ]
 
 };
@@ -30,6 +33,14 @@ describe('arrjson', function () {
       var tempShould = ['second first'];
 
       assert.deepEqual(tempShould, arrjson.get(temp, 'two.one'));
+
+    });
+
+    it ('should return [third first, fourthfirst]', function () {
+
+      var should = ['third first', 'fourth first'];
+
+      assert.deepEqual(should, arrjson.get(temp, 'three.one'));
 
     });
 
